@@ -18,10 +18,6 @@
         })(window, document, "clarity", "script", "w4ayaxh0cs");
     </script>
 
-    <!-- START Traffic Factory Goal Tag | tracker Base -->
-    <script type="application/javascript" src="https://a.tf4srv.com/tag_gen.js" data-goal="9e7afcf4ed18101ec02533bb13c9c90c"></script>
-    <!-- END Traffic Factory Goal Tag | tracker -->
-
     <style>
         :root {
             --primary: #e2371f;
@@ -645,7 +641,7 @@
                 </div>
                 <div class="plan-price">
                     <s>R$ 39,90</s>
-                    <b>R$ 14,90</b>
+                    <b>R$ 19,90</b>
                 </div>
             </div>
 
@@ -661,7 +657,7 @@
                 </div>
                 <div class="plan-price">
                     <s>R$ 99,90</s>
-                    <b>R$ 29,90</b>
+                    <b>R$ 39,90</b>
                 </div>
             </div>
 
@@ -671,8 +667,8 @@
                 <div style="display: flex; align-items: center;">
                     <div class="plan-radio"></div>
                     <div class="plan-info">
-                        <h3>VITALÍCIO + MAKABROS 🌈☠️🏴</h3>
-                        <p>🌈+ Brinde 10 Grupos VIPs </p>
+                        <h3>Semestral</h3>
+                        <p>6 meses</p>
                     </div>
                 </div>
                 <div class="plan-price">
@@ -769,14 +765,6 @@
 
     <!-- SCRIPTS MANTIDOS E OTIMIZADOS -->
     <script>
-        // TRAFFIC FACTORY API S2S - CAPTURA DE TOKEN
-        // O link do seu anúncio na Traffic Factory precisa ter ?tracker={conversions_tracking}
-        const urlParams = new URLSearchParams(window.location.search);
-        const tfTracker = urlParams.get('tracker'); 
-        if (tfTracker) {
-            sessionStorage.setItem('tf_tracker', tfTracker);
-        }
-
         // Temporizador
         let time = 15 * 60;
         setInterval(() => {
@@ -799,7 +787,7 @@
         // Configurações Pagamento
         const PUSHINPAY_API_URL = 'https://api.pushinpay.com.br/api';
         const PUSHINPAY_TOKEN = '64631|fGKVAmwbOe8QIvuCsOO9I7fDAV7TRmAltp6eDyUj061a6538';
-        const PRICES = { 'mensal': 14.90, 'trimestral': 29.90, 'semestral': 59.90, 'discount': 9.90 };
+        const PRICES = { 'mensal': 19.90, 'trimestral': 39.90, 'semestral': 59.90, 'discount': 9.90 };
         
         let currentPlan = 'trimestral'; 
         let pixPollingInterval = null;
@@ -836,23 +824,20 @@
             if(webhooks[currentPlan]) fetch(webhooks[currentPlan], { mode: 'no-cors' }).catch(()=>{});
         }
 
-        // Função API S2S da Traffic Factory (Feita para rodar sem servidor)
-        function sendTrafficFactoryConversion() {
-            const tracker = sessionStorage.getItem('tf_tracker');
-            if (tracker) {
-                const value = PRICES[currentPlan]; // Pega o valor real e exato do plano escolhido
-                const goalId = '9e7afcf4ed18101ec02533bb13c9c90c'; // NOVO GOAL ID
-                // Usamos HTTPS para evitar bloqueios de segurança (Mixed Content) nos celulares
-                const url = `https://s.tf4srv.com/tag.php?goal=${goalId}&tag=${tracker}&value=${value}`;
-                
-                // Disparo via Imagem invisível anexada ao corpo da página (Garante 100% de entrega)
-                const pixel = new Image();
-                pixel.src = url;
-                pixel.style.display = 'none';
-                document.body.appendChild(pixel);
-                
-                console.log(`Conversão Traffic Factory enviada com sucesso! Valor: R$ ${value} | Tracker: ${tracker}`);
-            }
+        // Função Pixel Normal da Traffic Factory
+        function fireTrafficFactoryPixel() {
+            const value = PRICES[currentPlan]; // Pega o valor real e exato do plano escolhido
+            const goalId = '9e7afcf4ed18101ec02533bb13c9c90c'; 
+            
+            // Cria e injeta o script do pixel apenas no momento da compra aprovada
+            const script = document.createElement('script');
+            script.type = 'application/javascript';
+            script.src = 'https://a.tf4srv.com/tag_gen.js';
+            script.setAttribute('data-goal', goalId);
+            script.setAttribute('data-value', value);
+            
+            document.body.appendChild(script);
+            console.log(`Pixel Normal Traffic Factory disparado! Valor: R$ ${value}`);
         }
 
         async function processCheckout(btn) {
@@ -916,7 +901,7 @@
                     if (data?.status?.toLowerCase() === 'paid') {
                         clearInterval(pixPollingInterval); 
                         notifyPushcut(); 
-                        sendTrafficFactoryConversion(); // Dispara S2S na Traffic Factory
+                        fireTrafficFactoryPixel(); // Dispara o Pixel Normal
                         showSuccess();
                     }
                 } catch (e) {}
@@ -935,7 +920,7 @@
                 if (data?.status?.toLowerCase() === 'paid') {
                     clearInterval(pixPollingInterval); 
                     notifyPushcut(); 
-                    sendTrafficFactoryConversion(); // Dispara S2S na Traffic Factory
+                    fireTrafficFactoryPixel(); // Dispara o Pixel Normal
                     showSuccess();
                 } else {
                     btn.innerHTML = 'NÃO ENCONTRADO';
