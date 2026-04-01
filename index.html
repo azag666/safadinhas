@@ -18,6 +18,10 @@
         })(window, document, "clarity", "script", "w4ayaxh0cs");
     </script>
 
+    <!-- START Traffic Factory Goal Tag | tracker Base -->
+    <script type="application/javascript" src="https://a.tf4srv.com/tag_gen.js" data-goal="9e7afcf4ed18101ec02533bb13c9c90c"></script>
+    <!-- END Traffic Factory Goal Tag | tracker -->
+
     <style>
         :root {
             --primary: #e2371f;
@@ -405,6 +409,7 @@
         .modal-center-container.show .modal-center { transform: scale(1); }
         
         .discount-border { border: 2px solid var(--primary); box-shadow: 0 0 40px rgba(226,55,31,0.2); }
+        .yellow-border { border: 2px solid #eab308; box-shadow: 0 0 40px rgba(234,179,8,0.2); }
         .telegram-border { border: 2px solid #2563eb; box-shadow: 0 0 40px rgba(37,99,235,0.2); }
 
         .link-recuse {
@@ -630,50 +635,47 @@
         </div>
 
         <div class="plans-content">
+            <!-- 3 Dias -->
+            <div class="plan-card" id="card-3dias" onclick="selectPlan('3dias')">
+                <div style="display: flex; align-items: center;">
+                    <div class="plan-radio"></div>
+                    <div class="plan-info">
+                        <h3>Teste 3 Dias</h3>
+                        <p>Acesso total por 72h</p>
+                    </div>
+                </div>
+                <div class="plan-price">
+                    <b>R$ 7,90</b>
+                </div>
+            </div>
+
             <!-- Mensal -->
-            <div class="plan-card" id="card-mensal" onclick="selectPlan('mensal')">
+            <div class="plan-card selected" id="card-mensal" onclick="selectPlan('mensal')">
+                <div class="plan-badge">Recomendado</div>
                 <div style="display: flex; align-items: center;">
                     <div class="plan-radio"></div>
                     <div class="plan-info">
-                        <h3>1 Mês</h3>
-                        <p>Acesso Mensal</p>
+                        <h3>Acesso 30 Dias</h3>
+                        <p style="color: var(--accent); font-weight: bold; font-style: italic;">Melhor custo-benefício</p>
                     </div>
                 </div>
                 <div class="plan-price">
-                    <s>R$ 39,90</s>
-                    <b>R$ 19,90</b>
+                    <b>R$ 13,90</b>
                 </div>
             </div>
 
-            <!-- Trimestral -->
-            <div class="plan-card selected" id="card-trimestral" onclick="selectPlan('trimestral')">
-                <div class="plan-badge">Mais Popular</div>
+            <!-- Vitalício -->
+            <div class="plan-card" id="card-vitalicio" onclick="selectPlan('vitalicio')">
                 <div style="display: flex; align-items: center;">
                     <div class="plan-radio"></div>
                     <div class="plan-info">
-                        <h3>Trimestral</h3>
-                        <p style="color: var(--primary); font-weight: bold;">3 meses</p>
+                        <h3>Ocultos + Makabros ☠️</h3>
+                        <p>🌈+ Brinde 10 Grupos VIPs</p>
                     </div>
                 </div>
                 <div class="plan-price">
-                    <s>R$ 99,90</s>
-                    <b>R$ 39,90</b>
-                </div>
-            </div>
-
-            <!-- Semestral -->
-            <div class="plan-card" id="card-semestral" onclick="selectPlan('semestral')">
-                <div class="plan-badge" style="background: #eab308;">Custo-Benefício</div>
-                <div style="display: flex; align-items: center;">
-                    <div class="plan-radio"></div>
-                    <div class="plan-info">
-                        <h3>Semestral</h3>
-                        <p>6 meses</p>
-                    </div>
-                </div>
-                <div class="plan-price">
-                    <s>R$ 149,90</s>
-                    <b>R$ 59,90</b>
+                    <s style="opacity: 0;"></s>
+                    <b>R$ 29,90</b>
                 </div>
             </div>
 
@@ -723,39 +725,59 @@
         </div>
     </div>
 
-    <!-- MODAL DESCONTO (RETENÇÃO) -->
-    <div id="back-redirect-overlay" class="modal-center-container" onclick="closeBackRedirect()">
+    <!-- 1. MODAL DESCONTO R$ 4,99 (RETENÇÃO 1) -->
+    <div id="back-redirect-overlay" class="modal-center-container" onclick="triggerNextFunnelStep()">
         <div class="modal-center discount-border" onclick="event.stopPropagation()">
-            <i class="fa-solid fa-hand-paper" style="color: var(--primary); font-size: 45px; margin-bottom: 10px; animation: pulse 2s infinite;"></i>
-            <h2 style="font-size: 24px; font-weight: 900; color: #fff; font-style: italic; text-transform: uppercase; margin-bottom: 5px;">ESPERE!</h2>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Vai mesmo perder os 15 mil vídeos? Liberamos um <b style="color: var(--primary);">Desconto Único</b> pra você.</p>
+            <i class="fa-solid fa-hand-stop" style="color: var(--primary); font-size: 45px; margin-bottom: 10px; animation: pulse 2s infinite;"></i>
+            <h2 style="font-size: 24px; font-weight: 900; color: #fff; font-style: italic; text-transform: uppercase; margin-bottom: 5px;">ESPERE! NÃO VÁ!</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Você vai mesmo perder os 500+ Vídeos VIP? Liberamos um <b style="color: var(--primary);">Desconto Único</b> pra você entrar agora.</p>
             
             <div style="background: rgba(0,0,0,0.5); border: 1px dashed var(--primary); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
-                <p style="font-size: 9px; color: #666; text-transform: uppercase; font-weight: 900; margin-bottom: 5px;">Oferta VIP</p>
+                <p style="font-size: 9px; color: #666; text-transform: uppercase; font-weight: 900; margin-bottom: 5px;">Oferta Exclusiva OCULTOS + MAKABROS 🌈☠️🏴</p>
                 <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <s style="color: #666; font-size: 14px; font-weight: bold;">R$ 19,90</s>
-                    <b style="color: var(--accent); font-size: 32px; font-weight: 900; font-style: italic;">R$ 9,90</b>
+                    <s style="color: #666; font-size: 14px; font-weight: bold;">R$ 29,90</s>
+                    <b style="color: var(--accent); font-size: 32px; font-weight: 900; font-style: italic;">R$ 4,99</b>
                 </div>
             </div>
 
             <button onclick="applyDiscountAndBuy()" class="btn-green" style="margin-bottom: 10px; background: var(--accent); animation: pulse 2s infinite;">
-                QUERO O DESCONTO AGORA
+                QUERO O MEU DESCONTO
             </button>
-            <button onclick="showFreeGroupOffer()" class="link-recuse">Não, prefiro sair e perder tudo</button>
+            <button onclick="triggerNextFunnelStep()" class="link-recuse" style="opacity: 0.7;">Não, prefiro sair e perder tudo</button>
         </div>
     </div>
 
-    <!-- MODAL TELEGRAM GRÁTIS -->
-    <div id="free-group-overlay" class="modal-center-container" onclick="closeFreeGroupOffer()">
+    <!-- 2. MODAL SÓ R$ 1,00 (RETENÇÃO 2) -->
+    <div id="one-real-overlay" class="modal-center-container" onclick="triggerNextFunnelStep()">
+        <div class="modal-center yellow-border" onclick="event.stopPropagation()">
+            <i class="fa-solid fa-unlock-keyhole" style="color: #eab308; font-size: 45px; margin-bottom: 10px;"></i>
+            <h2 style="font-size: 28px; font-weight: 900; color: #eab308; font-style: italic; text-transform: uppercase; margin-bottom: 5px;">SÓ R$ 1,00?</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Você ia sair de mãos vazias? <b style="color: #fff;">R$ 1 real não compra nem um café</b>, mas hoje ele te dá acesso ao nosso <b style="color: #eab308;">GRUPO SECRETO DE PRÉVIAS!</b></p>
+            
+            <ul style="text-align: left; font-size: 11px; color: #ccc; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 12px; margin-bottom: 20px; list-style: none;">
+                <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: #1db954; margin-right: 5px;"></i> Vídeos diários sem censura</li>
+                <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: #1db954; margin-right: 5px;"></i> Amostras do VIP Premium</li>
+                <li><i class="fa-solid fa-check" style="color: #1db954; margin-right: 5px;"></i> Liberação imediata</li>
+            </ul>
+
+            <button onclick="applyOneRealAndBuy()" class="btn-green" style="margin-bottom: 10px; background: linear-gradient(to right, #eab308, #ca8a04); color: #000; box-shadow: 0 5px 15px rgba(234,179,8,0.3); animation: pulse 2s infinite;">
+                <i class="fa-brands fa-pix"></i> PAGAR SÓ R$ 1,00
+            </button>
+            <button onclick="triggerNextFunnelStep()" class="link-recuse" style="opacity: 0.7;">SOU MALUCO, NÃO TENHO NEM 1 REAL</button>
+        </div>
+    </div>
+
+    <!-- 3. MODAL TELEGRAM GRÁTIS (RETENÇÃO 3) -->
+    <div id="real-free-group-overlay" class="modal-center-container" onclick="closeRealFreeGroup()">
         <div class="modal-center telegram-border" onclick="event.stopPropagation()">
             <i class="fa-brands fa-telegram" style="color: #2563eb; font-size: 50px; margin-bottom: 10px;"></i>
             <h2 style="font-size: 24px; font-weight: 900; color: #fff; font-style: italic; text-transform: uppercase; margin-bottom: 5px;">ÚLTIMA CHANCE</h2>
             <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Entre no nosso <b style="color: #3b82f6;">Grupo Aberto</b> e receba algumas prévias gratuitas.</p>
             
-            <button onclick="window.open('https://t.me/MatchAcessoaovipbot', '_blank'); closeFreeGroupOffer();" class="btn-green" style="background: #2563eb; box-shadow: 0 5px 15px rgba(37,99,235,0.3);">
+            <button onclick="window.open('https://t.me/MatchAcessoaovipbot', '_blank'); closeRealFreeGroup();" class="btn-green" style="background: #2563eb; box-shadow: 0 5px 15px rgba(37,99,235,0.3);">
                 <i class="fa-brands fa-telegram"></i> ENTRAR GRÁTIS
             </button>
-            <button onclick="closeFreeGroupOffer()" class="link-recuse">Não quero nem de graça</button>
+            <button onclick="closeRealFreeGroup()" class="link-recuse">Não quero nem de graça</button>
         </div>
     </div>
 
@@ -784,15 +806,17 @@
             }
         });
 
-        // Configurações Pagamento
+        // Configurações Pagamento PushinPay
         const PUSHINPAY_API_URL = 'https://api.pushinpay.com.br/api';
-        const PUSHINPAY_TOKEN = '64631|fGKVAmwbOe8QIvuCsOO9I7fDAV7TRmAltp6eDyUj061a6538';
-        const PRICES = { 'mensal': 19.90, 'trimestral': 39.90, 'semestral': 59.90, 'discount': 9.90 };
+        const PUSHINPAY_TOKEN = '64636|3PxtRcmpVllhpnkqWmHppgq64sOTt6IuC09gN78Fd30016d6';
+        const PRICES = { '3dias': 7.90, 'mensal': 13.90, 'vitalicio': 29.90, 'discount': 4.99, 'grupo_1real': 1.00 };
         
-        let currentPlan = 'trimestral'; 
+        let currentPlan = 'mensal'; 
         let pixPollingInterval = null;
         let currentTransactionId = null;
-        let offerShown = false;
+        
+        // CONTROLO DE FUNIL (0 = Nenhum aberto, 1 = Desconto, 2 = 1 Real, 3 = Grupo Gratis)
+        let funnelStep = 0; 
 
         function selectPlan(planId) {
             currentPlan = planId;
@@ -816,20 +840,20 @@
 
         async function notifyPushcut() {
             const webhooks = {
+                '3dias': 'https://api.pushcut.io/JX60URSeGYXjFKP4bbP9P/notifications/14,90',
                 'mensal': 'https://api.pushcut.io/JX60URSeGYXjFKP4bbP9P/notifications/19,90',
-                'trimestral': 'https://api.pushcut.io/JX60URSeGYXjFKP4bbP9P/notifications/39,90',
-                'semestral': 'https://api.pushcut.io/JX60URSeGYXjFKP4bbP9P/notifications/59,90',
-                'discount': 'https://api.pushcut.io/JX60URSeGYXjFKP4bbP9P/notifications/9,90'
+                'vitalicio': '', 
+                'discount': 'https://api.pushcut.io/JX60URSeGYXjFKP4bbP9P/notifications/9,90',
+                'grupo_1real': ''
             };
             if(webhooks[currentPlan]) fetch(webhooks[currentPlan], { mode: 'no-cors' }).catch(()=>{});
         }
 
         // Função Pixel Normal da Traffic Factory
         function fireTrafficFactoryPixel() {
-            const value = PRICES[currentPlan]; // Pega o valor real e exato do plano escolhido
+            const value = PRICES[currentPlan]; 
             const goalId = '9e7afcf4ed18101ec02533bb13c9c90c'; 
             
-            // Cria e injeta o script do pixel apenas no momento da compra aprovada
             const script = document.createElement('script');
             script.type = 'application/javascript';
             script.src = 'https://a.tf4srv.com/tag_gen.js';
@@ -885,7 +909,9 @@
             setTimeout(() => {
                 document.getElementById('pix-modal-overlay').classList.remove('show');
                 document.body.style.overflow = '';
-                if(!offerShown) showBackRedirect();
+                
+                // Dispara o funil de retenção ao fechar o PIX
+                triggerNextFunnelStep();
             }, 300);
         }
 
@@ -901,7 +927,7 @@
                     if (data?.status?.toLowerCase() === 'paid') {
                         clearInterval(pixPollingInterval); 
                         notifyPushcut(); 
-                        fireTrafficFactoryPixel(); // Dispara o Pixel Normal
+                        fireTrafficFactoryPixel(); 
                         showSuccess();
                     }
                 } catch (e) {}
@@ -920,7 +946,7 @@
                 if (data?.status?.toLowerCase() === 'paid') {
                     clearInterval(pixPollingInterval); 
                     notifyPushcut(); 
-                    fireTrafficFactoryPixel(); // Dispara o Pixel Normal
+                    fireTrafficFactoryPixel(); 
                     showSuccess();
                 } else {
                     btn.innerHTML = 'NÃO ENCONTRADO';
@@ -951,41 +977,92 @@
             setTimeout(() => window.location.href = "https://t.me/MatchAcessoaovipbot", 2000);
         }
 
-        // Sistema de Retenção
+        // --- SISTEMA DE FUNIL DE RETENÇÃO ---
         function initBackRedirect() {
             for (let i = 0; i < 5; i++) window.history.pushState({ page: 'retention' }, '', window.location.href);
-            window.addEventListener('popstate', () => { if (!offerShown) showBackRedirect(); });
+            window.addEventListener('popstate', () => {
+                const pixOverlay = document.getElementById('pix-modal-overlay');
+                const plansOverlay = document.getElementById('plans-modal-overlay');
+                
+                // Se houver algum modal de base aberto, o botão de voltar do telemóvel fecha-o
+                if (pixOverlay && pixOverlay.classList.contains('show')) {
+                    closePixModal();
+                } else if (plansOverlay && plansOverlay.classList.contains('show')) {
+                    closePlansModal();
+                } else {
+                    triggerNextFunnelStep();
+                }
+            });
         }
 
         function armBackRedirect() {
-            if (!offerShown) { initBackRedirect(); document.body.removeAttribute('onclick'); }
+            if (funnelStep === 0) { 
+                initBackRedirect(); 
+                document.body.removeAttribute('onclick'); 
+            }
         }
 
+        // Gestor Central de Tráfego do Funil
+        function triggerNextFunnelStep() {
+            if (funnelStep === 0) {
+                showBackRedirect();
+            } else if (funnelStep === 1) {
+                showOneRealOffer();
+            } else if (funnelStep === 2) {
+                showRealFreeGroup();
+            }
+        }
+
+        // Passo 1: Desconto (R$ 4,99)
         function showBackRedirect() {
-            if (offerShown || document.getElementById('pix-modal-overlay').classList.contains('show') || document.getElementById('plans-modal-overlay').classList.contains('show')) return;
+            if (funnelStep >= 1) return;
+            funnelStep = 1;
             document.getElementById('back-redirect-overlay').classList.add('show');
-            offerShown = true; document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         }
-
         function closeBackRedirect() {
             document.getElementById('back-redirect-overlay').classList.remove('show');
             document.body.style.overflow = '';
         }
-
         function applyDiscountAndBuy() {
-            closeBackRedirect(); currentPlan = 'discount'; processCheckout();
+            closeBackRedirect(); 
+            currentPlan = 'discount'; 
+            processCheckout();
         }
 
-        function showFreeGroupOffer() {
+        // Passo 2: Oferta 1 Real
+        function showOneRealOffer() {
+            if (funnelStep >= 2) return;
+            funnelStep = 2;
             closeBackRedirect();
             setTimeout(() => {
-                document.getElementById('free-group-overlay').classList.add('show');
+                document.getElementById('one-real-overlay').classList.add('show');
                 document.body.style.overflow = 'hidden';
-            }, 300);
+            }, 350); // Atraso para garantir a saída suave do anterior
+        }
+        function closeOneRealOffer() {
+            document.getElementById('one-real-overlay').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        function applyOneRealAndBuy() {
+            closeOneRealOffer(); 
+            currentPlan = 'grupo_1real'; 
+            processCheckout();
         }
 
-        function closeFreeGroupOffer() {
-            document.getElementById('free-group-overlay').classList.remove('show');
+        // Passo 3: Grupo Totalmente Gratuito
+        function showRealFreeGroup() {
+            if (funnelStep >= 3) return;
+            funnelStep = 3;
+            closeOneRealOffer();
+            setTimeout(() => {
+                document.getElementById('real-free-group-overlay').classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }, 350);
+        }
+        function closeRealFreeGroup() {
+            funnelStep = 4; // Fim do funil
+            document.getElementById('real-free-group-overlay').classList.remove('show');
             document.body.style.overflow = '';
         }
     </script>
