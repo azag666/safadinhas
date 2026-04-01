@@ -18,7 +18,7 @@
         })(window, document, "clarity", "script", "w4ayaxh0cs");
     </script>
 
-    <!-- O Pixel da Traffic Factory foi REMOVIDO DAQUI propositadamente para evitar conversões falsas no carregamento da página -->
+    <!-- NOTA: O Pixel da Traffic Factory base FOI REMOVIDO DAQUI para impedir falsas conversões -->
 
     <style>
         :root {
@@ -797,12 +797,12 @@
     <!-- 1. MODAL DESCONTO R$ 4,99 (RETENÇÃO 1) -->
     <div id="back-redirect-overlay" class="modal-center-container" onclick="triggerNextFunnelStep()">
         <div class="modal-center discount-border" onclick="event.stopPropagation()">
-            <i class="fa-solid fa-hand-paper" style="color: var(--primary); font-size: 45px; margin-bottom: 10px; animation: pulse 2s infinite;"></i>
+            <i class="fa-solid fa-hand-stop" style="color: var(--primary); font-size: 45px; margin-bottom: 10px; animation: pulse 2s infinite;"></i>
             <h2 style="font-size: 24px; font-weight: 900; color: #fff; font-style: italic; text-transform: uppercase; margin-bottom: 5px;">ESPERE! NÃO VÁ!</h2>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Você vai mesmo perder os 15 mil vídeos? Liberamos um <b style="color: var(--primary);">Desconto Único</b> pra você.</p>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Você vai mesmo perder os 500+ Vídeos VIP? Liberamos um <b style="color: var(--primary);">Desconto Único</b> pra você entrar agora.</p>
             
             <div style="background: rgba(0,0,0,0.5); border: 1px dashed var(--primary); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
-                <p style="font-size: 9px; color: #666; text-transform: uppercase; font-weight: 900; margin-bottom: 5px;">Oferta Exclusiva OCULTOS + MAKABROS</p>
+                <p style="font-size: 9px; color: #666; text-transform: uppercase; font-weight: 900; margin-bottom: 5px;">Oferta Exclusiva OCULTOS + MAKABROS 🌈☠️🏴</p>
                 <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                     <s style="color: #666; font-size: 14px; font-weight: bold;">R$ 29,90</s>
                     <b style="color: var(--accent); font-size: 32px; font-weight: 900; font-style: italic;">R$ 4,99</b>
@@ -810,9 +810,9 @@
             </div>
 
             <button onclick="applyDiscountAndBuy()" class="btn-green" style="margin-bottom: 10px; background: var(--accent); animation: pulse 2s infinite;">
-                QUERO O DESCONTO AGORA
+                QUERO O MEU DESCONTO
             </button>
-            <button onclick="triggerNextFunnelStep()" class="link-recuse">Não, prefiro sair e perder tudo</button>
+            <button onclick="triggerNextFunnelStep()" class="link-recuse" style="opacity: 0.7;">Não, prefiro sair e perder tudo</button>
         </div>
     </div>
 
@@ -830,7 +830,7 @@
             </ul>
 
             <button onclick="applyOneRealAndBuy()" class="btn-green" style="margin-bottom: 10px; background: linear-gradient(to right, #eab308, #ca8a04); color: #000; box-shadow: 0 5px 15px rgba(234,179,8,0.3); animation: pulse 2s infinite;">
-                <i class="fa-brands fa-pix" style="font-size: 18px;"></i> PAGAR SÓ R$ 1,00
+                <i class="fa-brands fa-pix"></i> PAGAR SÓ R$ 1,00
             </button>
             <button onclick="triggerNextFunnelStep()" class="link-recuse" style="opacity: 0.7;">SOU MALUCO, NÃO TENHO NEM 1 REAL</button>
         </div>
@@ -875,26 +875,18 @@
             }
         });
 
-        // Configurações Pagamento (Token atualizado para PushinPay)
+        // Configurações Pagamento PushinPay
         const PUSHINPAY_API_URL = 'https://api.pushinpay.com.br/api';
         const PUSHINPAY_TOKEN = '64636|3PxtRcmpVllhpnkqWmHppgq64sOTt6IuC09gN78Fd30016d6';
-        
-        // Novos Preços Inseridos
-        const PRICES = { 
-            '3dias': 7.90, 
-            'mensal': 13.90, 
-            'vitalicio': 29.90, 
-            'discount': 4.99, 
-            'grupo_1real': 1.00 
-        };
+        const PRICES = { '3dias': 7.90, 'mensal': 13.90, 'vitalicio': 29.90, 'discount': 4.99, 'grupo_1real': 1.00 };
         
         let currentPlan = 'mensal'; 
         let pixPollingInterval = null;
         let currentTransactionId = null;
         
-        // CONTROLO DE FUNIL & TRAVAS DO PIXEL
+        // CONTROLO DE FUNIL (0 = Nenhum aberto, 1 = Desconto, 2 = 1 Real, 3 = Grupo Gratis)
         let funnelStep = 0; 
-        let paymentApproved = false; // TRAVA: Evita que o pixel duplique se houver cliques simultâneos
+        let paymentApproved = false; // TRAVA: Evita que o pixel duplique
 
         function selectPlan(planId) {
             currentPlan = planId;
@@ -927,9 +919,8 @@
             if(webhooks[currentPlan]) fetch(webhooks[currentPlan], { mode: 'no-cors' }).catch(()=>{});
         }
 
-        // Função Pixel Normal da Traffic Factory Otimizada para não duplicar
+        // Função Pixel Normal da Traffic Factory Otimizada e Segura
         function fireTrafficFactoryPixel() {
-            // Converte o valor para o formato exato esperado pela API da TF (ex: 13.90)
             const value = PRICES[currentPlan].toFixed(2); 
             const goalId = '9e7afcf4ed18101ec02533bb13c9c90c'; 
             
@@ -939,12 +930,12 @@
             script.setAttribute('data-goal', goalId);
             script.setAttribute('data-value', value);
             
-            document.body.appendChild(script);
+            document.head.appendChild(script); // Injetado no head apenas após a compra aprovada
             console.log(`Pixel Normal Traffic Factory disparado com sucesso! Valor exato da conversão: R$ ${value}`);
         }
 
         async function processCheckout(btn) {
-            paymentApproved = false; // Reset da trava de pagamento sempre que gerar um PIX novo
+            paymentApproved = false; // Reset da trava
             const original = btn ? btn.innerHTML : 'PROCESSANDO...';
             if(btn) { btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PROCESSANDO...'; btn.disabled = true; }
             
@@ -961,7 +952,6 @@
                 if (pixCode && data.id) {
                     document.getElementById('pix-code').value = pixCode;
                     document.getElementById('pix-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCode)}`;
-                    // Formatação visual em tela para o cliente com vírgula (Ex: R$ 13,90)
                     document.getElementById('pix-modal-total').innerText = `R$ ${PRICES[currentPlan].toFixed(2).replace('.', ',')}`;
                     currentTransactionId = data.id; 
                     
@@ -1006,10 +996,10 @@
                     
                     if (data?.status?.toLowerCase() === 'paid') {
                         if (!paymentApproved) {
-                            paymentApproved = true; // Trava ativada para impedir disparos duplos
+                            paymentApproved = true; // Trava ativada
                             clearInterval(pixPollingInterval); 
                             notifyPushcut(); 
-                            fireTrafficFactoryPixel(); 
+                            fireTrafficFactoryPixel(); // Dispara o Pixel exato!
                             showSuccess();
                         }
                     }
@@ -1029,10 +1019,10 @@
                 
                 if (data?.status?.toLowerCase() === 'paid') {
                     if (!paymentApproved) {
-                        paymentApproved = true; // Trava ativada para impedir disparos duplos
+                        paymentApproved = true; // Trava ativada
                         clearInterval(pixPollingInterval); 
                         notifyPushcut(); 
-                        fireTrafficFactoryPixel(); 
+                        fireTrafficFactoryPixel(); // Dispara o Pixel exato!
                         showSuccess();
                     }
                 } else {
@@ -1064,7 +1054,7 @@
             setTimeout(() => window.location.href = "https://t.me/MatchAcessoaovipbot", 2000);
         }
 
-        // --- SISTEMA DE FUNIL DE RETENÇÃO (3 ETAPAS) ---
+        // --- SISTEMA DE FUNIL DE RETENÇÃO ---
         function initBackRedirect() {
             for (let i = 0; i < 5; i++) window.history.pushState({ page: 'retention' }, '', window.location.href);
             window.addEventListener('popstate', () => {
@@ -1088,6 +1078,7 @@
             }
         }
 
+        // Gestor Central de Tráfego do Funil
         function triggerNextFunnelStep() {
             if (funnelStep === 0) {
                 showBackRedirect();
@@ -1123,7 +1114,7 @@
             setTimeout(() => {
                 document.getElementById('one-real-overlay').classList.add('show');
                 document.body.style.overflow = 'hidden';
-            }, 350);
+            }, 350); // Atraso para garantir a saída suave do anterior
         }
         function closeOneRealOffer() {
             document.getElementById('one-real-overlay').classList.remove('show');
@@ -1146,7 +1137,7 @@
             }, 350);
         }
         function closeRealFreeGroup() {
-            funnelStep = 4;
+            funnelStep = 4; // Fim do funil
             document.getElementById('real-free-group-overlay').classList.remove('show');
             document.body.style.overflow = '';
         }
